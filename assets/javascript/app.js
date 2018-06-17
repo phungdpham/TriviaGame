@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    console.log("ready");
+
+
 //Create Variable to obtain quiz area & Cuntdown time
 var panel = $("#quiz");
 var startTime = 30;
@@ -72,7 +76,7 @@ var game = {
         correct: 0,
         incorrect: 0,
         //Create count down function
-        decrement: function() {
+        countdown: function() {
             game.counter--;
             $("#count-down").html(game.counter);
 
@@ -82,12 +86,12 @@ var game = {
         },
         //Create a function to load question
         loadQuestion: function() {
-            timer = setInterval(game.decrement, 1000);
+            timer = setInterval(game.countdown, 1000);
             panel.html("<h2>" + questions[this.currentQuestion].question + "</h2>");
             for (i = 0; i<questions[this.currentQuestion].choices.length; i++){
                 
-                var buttonClicked = $("<button  id='button-clicked'" + "data-name='" + questions[this.currentQuestion].choices[i] + "'>" + questions[this.currentQuestion].choices[i] + "</button>")
-                buttonClicked.addClass("thisChoice");
+                var buttonClicked = $("<button class='btn btn-secondary' id='user-choice' + data-name='" + questions[this.currentQuestion].choices[i] + "'>" + questions[this.currentQuestion].choices[i] + "</button>")
+                buttonClicked.addClass("this-choice");
                 panel.append(buttonClicked);
             }
         },
@@ -131,10 +135,10 @@ var game = {
         },
         //Function to click to check answer correction.
         clicked: function(){
-            userChoice = $(".thisChoice");
+            
             clearInterval(timer);
 
-            if($(this.userChoice) === questions[this.currentQuestion].correctChoice) {
+            if($(".this-choice").data("name") === questions[this.currentQuestion].correctChoice) {
             this.rightChoice(); 
             }
             else{
@@ -171,7 +175,7 @@ var game = {
         },
 
         //Function to reset game
-        resets: function() {
+        reset: function() {
             this.currentQuestion = 0;
             this.counter = startTime;
             this.correct = 0;
@@ -187,7 +191,7 @@ $("#start").on("click", function() {
     game.loadQuestion();
 });
 
-$("button").on("click", function() {
+$("#user-choice").on("click", function() {
     game.clicked();
 });
 
@@ -196,5 +200,5 @@ $("#start-over").on("click", function(){
 });
 
 
-
+});
 
