@@ -51,14 +51,14 @@ var timer;
 
 var game = {
     questions: questions,
-    curQuesion: 0,
+    curQuestion: 0,
     counter: countStartNumber,
     correct: 0,
     incorrect: 0,
 
     countdown: function() {
         this.counter--;
-        $('#counter-umber').text(this.counter);
+        $('#counter-number').text(this.counter);
         if(this.counter === 0) {
             console.log('time up');
             this.timeUp();
@@ -67,17 +67,17 @@ var game = {
 
     loadQuestion: function() {
         timer = setInterval(this.countdown.bind(this), 1000);
-        panel.html("<h2>" + questions[this.curQuesion].question + "</h2>");
-        for (var i = 0; i < questions[this.curQuesion].answers.length; i++) {
-            panel.append("<button class='answer-button' id='button' data-name='" + questions[this.curQuestion].question.answers[i]
-            + "'>" + questions[this.curQuesion].answers[i] + "</button>");
+        panel.html("<h2>" + questions[this.curQuestion].question + "</h2>");
+        for (var i = 0; i < questions[this.curQuestion].answers.length; i++) {
+            panel.append("<button class='answer-button' id='button' data-name='" + questions[this.curQuestion].answers[i]
+            + "'>" + questions[this.curQuestion].answers[i] + "</button>");
         }
     },
 
     nextQuestion: function() {
-        this.counter = windown.countStartNumber;
+        this.counter = window.countStartNumber;
         $('#counter-number').text(this.counter);
-        this.curQuesion++;
+        this.curQuestion++;
         this.loadQuestion.bind(this)();
     },
 
@@ -86,9 +86,9 @@ var game = {
         $('#counter-number').text(this.counter);
         panel.html("<h2>Out of time!</h2>");
         panel.append("<h3>The Correct Answer was: " + questions[this.curQuestion].correctAnswer);
-        panel.append("<img sr='" + questions[this.curQuesion].img + "' />");
+        panel.append("<img sr='" + questions[this.curQuestion].img + "' />");
 
-        if (this.curQuesion === questions.length -1) {
+        if (this.curQuestion === questions.length -1) {
             setTimeout(this.result, 3 * 1000);
         } else {
             setTimeout(this.nextQuestion, 3 * 1000)
@@ -108,7 +108,7 @@ var game = {
 
     clicked: function(e) {
         clearInterval(window.timer);
-        if ($(e.target).attr("data-name") === questions[this.curQuesion].correctAnswer) {
+        if ($(e.target).attr("data-name") === questions[this.curQuestion].correctAnswer) {
             this.answeredCorrectly();
         }
         else {
@@ -121,10 +121,10 @@ var game = {
         clearInterval(window.timer);
 
         panel.html("<h2>Nope!</h2>");
-        panel.append("<h3>The correct answer was: " + questions[this.curQuesion].correctAnswer + "</h3>");
-        panel.append("<img src='" + questions[this.curQuesion].image + "' />");
+        panel.append("<h3>The correct answer was: " + questions[this.curQuestion].correctAnswer + "</h3>");
+        panel.append("<img src='" + questions[this.curQuestion].image + "' />");
 
-        if (this.curQuesion === questions.length -1) {
+        if (this.curQuestion === questions.length -1) {
             setTimeout(this.results.bind(this), 3 * 1000);
         } else {
             setTimeout(this.nextQuestion.bind(this), 3 * 1000);
@@ -136,9 +136,9 @@ var game = {
         this.correct++;
 
         panel.html("<h2>Correct!</h2>");
-        panel.append("<img src='" + questions[this.curQuesion].image + "' />");
+        panel.append("<img src='" + questions[this.curQuestion].image + "' />");
 
-        if (this.curQuesion === questions.length -1) {
+        if (this.curQuestion === questions.length -1) {
             setTimeout(this.results.bind(this), 3 * 1000);
         } else {
             setTimeout(this.nextQuestion.bind(this), 3 * 1000);
@@ -146,7 +146,7 @@ var game = {
     },
 
     reset: function() {
-        this.curQuesion = 0;
+        this.curQuestion = 0;
         this.counter = countStartNumber;
         this.correct = 0;
         this.incorrect = 0;
@@ -160,6 +160,6 @@ $(document).on('click', '.answer-button', function(e) {
     game.clicked.bind(game, e)();
 });
 $(document).on('click', '#start', function() {
-    $('#sub-wrapper').prepend("<h2>Time Remaining: <span id='counter-number'>30</span>Seconds</h2>");
+    $('#sub-wrapper').prepend("<h2>Time Remaining: <span id='counter-number'>30</span> Seconds</h2>");
     game.loadQuestion.bind(game)();
 });

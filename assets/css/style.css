@@ -5,20 +5,20 @@ body {
 
 body {
     text-align: center;
-    blackground-image: url('../images/tacky.jpg');
+    background-image: url('../images/tacky.jpg');
 }
 
 #wrapper {
-    width: 960px;
-    height: 95%;
+    width: 80vw;
+    height: 98vh;
     box-sizing: border-box;
     margin: 2.5% auto;
-    backgroud-color: #fff17a;
+    background-color: #fff17a;
 }
 
 #sub-wrapper{
     position: relative;
-    top: 15%;
+    top: 10%;
 }
 
 button {
@@ -33,7 +33,7 @@ button {
 }
 
 img {
-    height: 200px;
+    height: 150px;
 }
 
 h1 {
